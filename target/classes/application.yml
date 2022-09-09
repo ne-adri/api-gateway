@@ -1,0 +1,28 @@
+server:
+  port: 9191
+
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    discovery:
+      enabled: true
+    gateway:
+      routes:
+        - id: SHOPPING-CART
+          uri: lb://SHOPPING-CART
+          predicates:
+            - Path=/cart/**
+        - id: PRODUCT-CATALOG
+          uri: lb://PRODUCT-CATALOG
+          predicates:
+            - Path=/product/**
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+
